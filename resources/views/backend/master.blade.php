@@ -15,6 +15,7 @@
     />
 
     <title>@yield('site-title')</title>
+    
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
@@ -42,7 +43,74 @@
     <link rel="stylesheet" href="{{url('backend/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
     <script src="{{url('backend/vendor/js/helpers.js')}}"></script>
     <script src="{{url('backend/js/config.js')}}"></script>
+  <style>
+    .pagination_rounded, .pagination_square {
+    display: inline-block;
+    margin-left:400px;
+    margin-top:50px;
+}
 
+.pagination_rounded ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination_rounded li:first-child {
+    margin-left: 0px;
+}
+
+.pagination_rounded ul li {
+    float: left;
+    margin-left: 20px;
+}
+
+.pagination_rounded ul li a:hover {
+    background: #4285f4;
+    color: #fff;
+    border: 1px solid #4285f4;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.pagination_rounded .prev {
+    margin-left: 0px;
+    border-radius: 35px;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+}
+
+
+.pagination_rounded ul li a {
+    float: left;
+    color: #4285f4;
+    border-radius: 50%;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+    border: 1px solid #e0e0e0;
+}
+
+.pagination_rounded .prev i {
+    margin-right: 10px;
+}
+
+.pagination_rounded .next {
+    border-radius: 35px;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+}
+
+.visible-xs {
+    display: none!important;
+}
+  </style>
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -157,7 +225,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/admin/list-product" class="menu-link">
+                  <a href="/admin/list-product/" class="menu-link">
                     <div data-i18n="Without menu">View Post</div>
                   </a>
                 </li>
@@ -201,6 +269,30 @@
                   <li class="menu-item">
                     <a href="/admin/list-attribute" class="menu-link">
                       <div data-i18n="Without menu">View Post</div>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="/admin/add-attribute" class="menu-link">
+                      <div data-i18n="Without menu">Add Post</div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                  <i class="menu-icon tf-icons bx bx-bolt-circle"></i>
+                  <div data-i18n="Layouts">Access Order</div>
+                      @if ($orderRow>0)
+                <div style="margin-left: 15px; background-color: #4285f4; padding: 5px 5px 0px 5px; border-radius: 30px; color: white; width: 23px; text-align: center; height: 25px;">{{$orderRow}}</div>
+                @endif
+                <i class="menu-arrow"></i>
+                </a>
+
+                <ul class="menu-sub">
+                  <li class="menu-item">
+                    <a href="/admin/view-order" class="menu-link">
+                      <div data-i18n="Without menu">View Order</div>
                     </a>
                   </li>
                   <li class="menu-item">
@@ -262,7 +354,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      {{-- <img src="/uploads/{{ Auth::user()->profile }}" alt class="w-px-40 h-auto rounded-circle" /> --}}
+                      <img src="/uploads/{{ Auth::user()->profile }}" width="150" height="150" alt class=" rounded-circle" style="object-fit: cover;" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -271,7 +363,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              {{-- <img src="/uploads/{{ Auth::user()->profile }}" alt class="w-px-40 h-auto rounded-circle" /> --}}
+                              <img src="/uploads/{{ Auth::user()->profile }}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">

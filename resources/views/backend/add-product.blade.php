@@ -41,24 +41,29 @@
                                 <div class="mb-3 col-6">
                                     <label for="formFile" class="form-label">Available Size</label>
                                     <select name="size[]" class="form-control size-color" multiple="multiple">
-                                       <option value="">S</option>
-                                       <option value="">M</option>
-                                       <option value="">l</option>
+                                        @foreach ($attri as $value1 )
+                                            @if ($value1->type =='size')
+                                            <option value="{{$value1->value}}">{{$value1->value}}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="formFile" class="form-label">Available Color</label>
                                     <select name="color[]" class="form-control size-color" multiple="multiple">
-                                        <option value="">Red</option>
-                                        <option value="">Blue</option>
-                                        <option value="">Black</option>
+                                    @foreach ($attri as $value1 )
+                                            @if ($value1->type =='color')
+                                            <option value="{{$value1->value}}">{{$value1->value}}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="formFile" class="form-label">Category</label>
                                     <select name="category" class="form-control">
-                                        <option value="">Man</option>
-                                        <option value="">Woman</option>
+                                        @foreach ($cate as $value )
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">

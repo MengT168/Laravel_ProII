@@ -69,6 +69,16 @@
     </div>
     <!-- / Content -->
   </div>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.remove-post-key').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var id = button.getAttribute('data-value');
+            document.getElementById('remove-val').value = id;
+        });
+    });
+});
+</script>
 </div>
 
 @endsection

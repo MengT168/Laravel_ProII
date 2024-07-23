@@ -10,33 +10,54 @@
             <div class="row">
                 <div class="col-5">
                     <div class="thumbnail">
-                        <img src="https://placehold.co/450x670" alt="">
+                        <img src="/uploads/{{$product[0]->thumbnail}}" width="100%" alt="">
                     </div>
                 </div>
                 <div class="col-7">
                     <div class="detail">
                         <div class="price-list">
-                            <div class="price d-none">US 30.5</div>
-                            <div class="regular-price"><strike> US 30.5</strike></div>
-                            <div class="sale-price">US 23.6</div>
+                        @if ($product[0]->sale_price >0)
+                            <div class="regular-price "><strike> US {{$product[0]->regular_price}}</strike></div>
+                            <div class="sale-price ">US {{$product[0]->sale_price}}</div>
+                        @else
+                            <div class="price">US {{$product[0]->regular_price}}</div>
+                        @endif 
                         </div>
-                        <h5 class="title">Plain T-shirt</h5>
+                        <h5 class="title">{{$product[0]->name}}</h5>
                         <div class="group-size">
                             <span class="title">Color Available</span>
                             <div class="group">
-                                Red ,Yellow ,Green
+                            {{$product[0]->attribute_color}}
                             </div>
                         </div>
                         <div class="group-size">
                             <span class="title">Size Available</span>
                             <div class="group">
-                                XS ,S ,M ,L ,XL ,XXL
+                            {{$product[0]->attribute_size}}
                             </div>
+                        </div>
+                        <div class="group-size" >
+                            <form method="post" action="/add-cart" style="width: 250px; display: flex; gap: 10px; " >
+                                @csrf
+                                @if (Auth::check()==1)
+                                    @php
+                                        $userId = Auth::user()->id;
+                                    @endphp
+                                @else
+                                    @php
+                                        $userId = 0;
+                                    @endphp
+                                @endif
+                                <input type="hidden" value="{{$product[0]->id}}" name="proId" >
+                                <input type="hidden" value="{{$userId}}" name="userId" >
+                                <input type="number" class="form-control" style="width:  60px;" value="1" name="qty" >
+                                <button class="btn btn-primary mt-2" style="width: 150px;" >Add to cart</button>
+                            </form>
                         </div>
                         <div class="group-size">
                             <span class="title">Description</span>
                             <div class="description">
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                            {{$product[0]->description}}
                             </div>
                         </div>
                     </div>
@@ -55,29 +76,34 @@
                 </div>
             </div>
             <div class="row">
-                @for ($i = 0; $i < 4; $i++)
-                    <div class="col-3">
-                        <figure>
-                            <div class="thumbnail">
-                                <div class="status">
-                                    Promotion
+                    @foreach ($relatedProduct as $relatedProductValue )
+                        <div class="col-3">
+                            <figure>
+                                <div class="thumbnail">
+                                    @if ($relatedProductValue->sale_price >0)
+                                        <div class="status">
+                                            Promotion
+                                        </div>
+                                    @endif
+                                    <a href="/product">
+                                        <img src="/uploads/{{$relatedProductValue->thumbnail}}" alt="">
+                                    </a>
                                 </div>
-                                <a href="">
-                                    <img src="https://placehold.co/450x670" alt="">
-                                </a>
-                            </div>
-                            <div class="detail">
-                                <div class="price-list">
-                                    <div class="price d-none">US 10</div>
-                                    <div class="regular-price "><strike> US 15</strike></div>
-                                    <div class="sale-price ">US 12</div>
+                                <div class="detail">
+                                    <div class="price-list">
+                                    @if ($relatedProductValue->sale_price >0)
+                                        <div class="regular-price "><strike> US {{$relatedProductValue->regular_price}}</strike></div>
+                                        <div class="sale-price ">US {{$relatedProductValue->sale_price}}</div>
+                                    @else
+                                     <div class="price">US {{$relatedProductValue->regular_price}}</div>
+                                    @endif 
+                                    </div>
+                                    <h5 class="title">{{$relatedProductValue->name}}</h5>
                                 </div>
-                                <h5 class="title">T-Shirt 001</h5>
-                            </div>
-                        </figure>
-                    </div>
-                @endfor
-            </div>
+                            </figure>
+                        </div>
+                    @endforeach
+                </div>
         </div>
     </section>
 

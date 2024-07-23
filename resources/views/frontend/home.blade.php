@@ -6,6 +6,9 @@
     <main class="home">
         <section>
             <div class="container">
+                @if (Session::has('message'))
+                    <h3 style="text-align: center;" >{{Session::get('message')}}</h3>
+                @endif
                 <div class="row">
                     <div class="col-12">
                         <h3 class="main-title">
@@ -14,28 +17,35 @@
                     </div>
                 </div>
                 <div class="row">
-                    @for ($i = 0; $i < 4; $i++)
+                    @foreach ($newProducts as $newProductValue )
+                    
+                    
                         <div class="col-3">
                             <figure>
                                 <div class="thumbnail">
-                                    <div class="status">
-                                        Promotion
-                                    </div>
-                                    <a href="/product">
-                                        <img src="https://placehold.co/450x670" alt="">
+                                    @if ($newProductValue->sale_price >0)
+                                        <div class="status">
+                                            Promotion
+                                        </div>
+                                    @endif
+                                    <a href="/product/{{$newProductValue->slug}}">
+                                        <img src="/uploads/{{$newProductValue->thumbnail}}" alt="">
                                     </a>
                                 </div>
                                 <div class="detail">
                                     <div class="price-list">
-                                        <div class="price d-none">US 10</div>
-                                        <div class="regular-price "><strike> US 15</strike></div>
-                                        <div class="sale-price ">US 12</div>
+                                    @if ($newProductValue->sale_price >0)
+                                        <div class="regular-price "><strike> US {{$newProductValue->regular_price}}</strike></div>
+                                        <div class="sale-price ">US {{$newProductValue->sale_price}}</div>
+                                    @else
+                                     <div class="price">US {{$newProductValue->regular_price}}</div>
+                                    @endif 
                                     </div>
-                                    <h5 class="title">T-Shirt 001</h5>
+                                    <h5 class="title">{{$newProductValue->name}}</h5>
                                 </div>
                             </figure>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -50,28 +60,35 @@
                     </div>
                 </div>
                 <div class="row">
-                    @for ($i = 0; $i < 4; $i++)
+                    @foreach ($promotionPro as $promotionProductValue )
+                    
+                    
                         <div class="col-3">
                             <figure>
                                 <div class="thumbnail">
-                                    {{-- <div class="status">
-                                        Promotion
-                                    </div> --}}
-                                    <a href="">
-                                        <img src="https://placehold.co/450x670" alt="">
+                                    @if ($promotionProductValue->sale_price >0)
+                                        <div class="status">
+                                            Promotion
+                                        </div>
+                                    @endif
+                                    <a href="/product/{{$promotionProductValue->slug}}">
+                                        <img src="/uploads/{{$promotionProductValue->thumbnail}}" alt="">
                                     </a>
                                 </div>
                                 <div class="detail">
                                     <div class="price-list">
-                                        <div class="price d-none">US 10</div>
-                                        <div class="regular-price "><strike> US 15</strike></div>
-                                        <div class="sale-price ">US 12</div>
+                                    @if ($promotionProductValue->sale_price >0)
+                                        <div class="regular-price "><strike> US {{$promotionProductValue->regular_price}}</strike></div>
+                                        <div class="sale-price ">US {{$promotionProductValue->sale_price}}</div>
+                                    @else
+                                     <div class="price">US {{$promotionProductValue->regular_price}}</div>
+                                    @endif 
                                     </div>
-                                    <h5 class="title">T-Shirt 001</h5>
+                                    <h5 class="title">{{$promotionProductValue->name}}</h5>
                                 </div>
                             </figure>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </section>  
@@ -86,28 +103,35 @@
                     </div>
                 </div>
                 <div class="row">
-                    @for ($i = 0; $i < 4; $i++)
+                    @foreach ($popularProduct as $popularProductValue )
+                    
+                    
                         <div class="col-3">
                             <figure>
                                 <div class="thumbnail">
-                                    {{-- <div class="status">
-                                        Promotion
-                                    </div> --}}
-                                    <a href="">
-                                        <img src="https://placehold.co/450x670" alt="">
+                                    @if ($popularProductValue->sale_price >0)
+                                        <div class="status">
+                                            Promotion
+                                        </div>
+                                    @endif
+                                    <a href="/product/{{$popularProductValue->slug}}">
+                                        <img src="/uploads/{{$popularProductValue->thumbnail}}" alt="">
                                     </a>
                                 </div>
                                 <div class="detail">
                                     <div class="price-list">
-                                        <div class="price d-none">US 10</div>
-                                        <div class="regular-price "><strike> US 15</strike></div>
-                                        <div class="sale-price ">US 12</div>
+                                    @if ($popularProductValue->sale_price >0)
+                                        <div class="regular-price "><strike> US {{$popularProductValue->regular_price}}</strike></div>
+                                        <div class="sale-price ">US {{$popularProductValue->sale_price}}</div>
+                                    @else
+                                     <div class="price">US {{$popularProductValue->regular_price}}</div>
+                                    @endif 
                                     </div>
-                                    <h5 class="title">T-Shirt 001</h5>
+                                    <h5 class="title">{{$popularProductValue->name}}</h5>
                                 </div>
                             </figure>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </section>

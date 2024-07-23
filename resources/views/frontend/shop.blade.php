@@ -9,36 +9,63 @@
             <div class="row">
                 <div class="col-9">
                     <div class="row">
-                        @for ($i = 0; $i < 6; $i++)
+                       
+                    @foreach ($product as $productVal )
+                        
                             <div class="col-4">
                                 <figure>
                                     <div class="thumbnail">
+                                    @if ($productVal->sale_price >0)
                                         <div class="status">
                                             Promotion
                                         </div>
-                                        <a href="">
-                                            <img src="https://placehold.co/450x670" alt="">
+                                    @endif
+                                    
+                                        <a href="/product/{{$productVal->slug}}">
+                                        <img src="/uploads/{{$productVal->thumbnail}}" alt="">
                                         </a>
+                                     
+
                                     </div>
                                     <div class="detail">
-                                        <div class="price-list">
-                                            <div class="price d-none">US 10</div>
-                                            <div class="regular-price "><strike> US 15</strike></div>
-                                            <div class="sale-price ">US 12</div>
-                                        </div>
-                                        <h5 class="title">T-Shirt 001</h5>
+                                       
+                                        
+                                    <div class="price-list">
+                                    @if ($productVal->sale_price >0)
+                                        <div class="regular-price "><strike> US {{$productVal->regular_price}}</strike></div>
+                                        <div class="sale-price ">US {{$productVal->sale_price}}</div>
+                                    @else
+                                     <div class="price">US {{$productVal->regular_price}}</div>
+                                    @endif 
                                     </div>
+                                    <h5 class="title">{{$productVal->name}}</h5>
+                                    
+                                </div>
                                 </figure>
                             </div>
-                        @endfor
-                        
+                            @endforeach
                         <div class="col-12">
                             <ul class="pagination">
-                                @for ($i = 1; $i <= 5; $i++)
+                            @if (Request::get('category'))
+                                @for ($i = 1; $i <= $totalPage; $i++)
+                                    <li>
+                                        <a href="/shop?category={{Request::get('category')}}&page={{$i}}">{{$i}}</a>
+                                    </li>
+                                @endfor
+                            @elseif(Request::get('promotion'))
+                                @for ($i = 1; $i <= $totalPage; $i++)
+                                    <li>
+                                        <a href="/shop?promotion={{Request::get('promotion')}}&page={{$i}}">{{$i}}</a>
+                                    </li>
+                                @endfor
+                            @else
+                                @for ($i = 1; $i <= $totalPage; $i++)
                                     <li>
                                         <a href="/shop?page={{$i}}">{{$i}}</a>
                                     </li>
                                 @endfor
+                            @endif
+                                
                             </ul>
                         </div>
                     </div>
@@ -47,20 +74,13 @@
                     <h4 class="title">Category</h4>
                     <ul>
                         <li>
-                            <a href="/shop">ALL</a>
+                            <a href="/shop">All</a>
                         </li>
+                        @foreach ($category as $cateVal )
                         <li>
-                            <a href="/shop?cat=">Men</a>
-                        </li> 
-                        <li>
-                            <a href="/shop?cat=">Women</a>
-                        </li> 
-                        <li>
-                            <a href="/shop?cat=">Girl</a>
-                        </li> 
-                        <li>
-                            <a href="/shop?cat=">Boy</a>
-                        </li> 
+                            <a href="/shop?category={{$cateVal->slug}}">{{$cateVal->name}}</a>
+                        </li>
+                        @endforeach
                     </ul>
                     
                     <h4 class="title mt-4">Price</h4>

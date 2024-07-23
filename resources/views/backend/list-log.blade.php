@@ -19,6 +19,7 @@
                   <th>Post Type</th>
                   <th>Author</th>
                   <th>Actions</th>
+                  <th>Detail</th>
                   <th>Created At</th>
                 </tr>
               </thead>
@@ -29,6 +30,8 @@
                         <td>{{ $value->post_type }}</td>
                         <td><span class="badge bg-label-primary me-1">{{ $value->name }}</span>
                         </td><td><span class="badge bg-label-warning me-1">{{ $value->action }}</span></td>
+                        <input type="hidden" value="{{$value->id}}" >
+                        <td><a href="/admin/log-detail/{{$value->post_type}}/{{ $value->post_id }}/{{$value->id}}">Detail</a></td>
                         <td>{{ $value->created_at }}</td>
                     </tr>
                 @endforeach

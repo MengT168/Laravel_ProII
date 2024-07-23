@@ -2,7 +2,7 @@
 @section('content')
 
     @section('site-title')
-        Admin | Add Post
+        Admin | Add Logo
     @endsection
     @section('page-main-title')
         Add Logo

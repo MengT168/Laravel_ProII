@@ -13,6 +13,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function __construct()
+    {
+        date_default_timezone_set("Asia/Bangkok");
+    }
+
     //Move File Upload
     public function uploadFile($File) {
         $fileName  = rand(1,999).'-'.$File->getClientOriginalName();
@@ -22,13 +27,14 @@ class Controller extends BaseController
     }
 
     //Log Activities
-    public function logActivity($postType, $title, $action, $author,$date) {
-        $user = Auth::user()->name;
+    public function logActivity($postType, $title, $postId , $action) {
+        $user = Auth::user()->id;
         DB::table('log_activity')->insert([
             'title'         => $title,
             'post_type'     => $postType,
-            'status'        => $action,
-            'author'        => $author,
+            'post_id'       => $postId,
+            'action'        => $action,
+            'author'        => $user,
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s')
         ]);
@@ -39,4 +45,15 @@ class Controller extends BaseController
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string))).'-'.rand(1,999);
         return $slug;
     }
+
+    public function checkExistPost($table,$fieldName,$fieldValue){
+        $exist = DB::table($table)->where($fieldName,$fieldValue)->count('id');
+        return $exist;
+    }
+
+    public function getLastPostId ($tableName){
+        $lastId = DB::table($tableName)->orderByDesc('id')->limit(1)->get();
+        return $lastId[0]->id;
+    }
+    
 }
